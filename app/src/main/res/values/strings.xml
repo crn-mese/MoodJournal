@@ -12,7 +12,7 @@
     <string name="angry">😠\nAngry</string>
     <string name="anxious">😰\nAnxious</string>
     <string name="calm">😌\nCalm</string>
-    <string name="note">Add a note (optional)</string>
+    <string name="note">Add a note</string>
     <string name="day">How was your day? What made you feel this way?</string>
     <string name="save_mood">Save Today's Mood</string>
     <string name="quick">Quick Actions</string>
