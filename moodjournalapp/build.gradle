@@ -1,19 +1,23 @@
 plugins {
     id 'com.android.application'
+    // Add Kotlin plugin if you are using Kotlin
+    // id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services' // <-- ADD THIS FOR FIREBASE
 }
 
 android {
     namespace 'com.example.moodjournalapp'
-    compileSdk 35
+    compileSdk 34 // Example: Using a stable SDK version
 
     defaultConfig {
         applicationId "com.example.moodjournalapp"
         minSdk 24
-        targetSdk 35
+        targetSdk 34 // Example: Using a stable SDK version
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // Use AndroidX test runner
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -23,15 +27,33 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_1_8 // Common to use 1.8 or higher with modern AGP
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+    // If using Kotlin:
+    // kotlinOptions {
+    //     jvmTarget = '1.8'
+    // }
 }
 
 dependencies {
+    // AndroidX Libraries (after migrating from support libraries)
+    implementation 'androidx.appcompat:appcompat:1.6.1' // Example
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4' // Example if you use ConstraintLayout
 
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    // Firebase BoM (Bill of Materials) - Recommended
+    implementation platform('com.google.firebase:firebase-bom:32.7.1') // Check for the latest BoM version
+
+    // Add the Firebase SDKs for the products you want to use
+    // For example, Analytics, Authentication, Firestore
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    // Add other Firebase SDKs as needed (e.g., Realtime Database, Storage, Crashlytics)
+
+
+    // Test libraries (using AndroidX test libraries)
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
