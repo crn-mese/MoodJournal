@@ -28,4 +28,6 @@
     <!--Button Colors-->
     <color name="button_positive">#B8E2C8</color>
     <color name="button_negative">#FFD6D6</color>
+
+    <color name="selected_mood">#00BCD4</color>
 </resources>
