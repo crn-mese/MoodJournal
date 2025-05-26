@@ -57,7 +57,7 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    // Corrected and completed signInUser method
+    // corrected and completed signInUser method
     private void signInUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
