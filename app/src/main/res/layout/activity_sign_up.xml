@@ -7,15 +7,31 @@
     android:padding="16dp"
     tools:context=".SignUpActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:text="@string/login_title"
+        android:textColor="@color/primary_blue"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="161dp" />
+
     <EditText
         android:id="@+id/editTextSignUpEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="280dp"
+        android:background="@drawable/modern_style"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:padding="12dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,10 +40,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@drawable/modern_style"
         android:hint="Password (min. 6 characters)"
         android:inputType="textPassword"
-        android:padding="12dp"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSignUpEmail" />
 
@@ -38,7 +56,9 @@
         android:layout_marginTop="16dp"
         android:hint="Confirm Password"
         android:inputType="textPassword"
-        android:padding="12dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/modern_style"
+        android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSignUpPassword" />
@@ -51,6 +71,9 @@
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
         android:text="Sign Up"
+        android:tooltipText="Sign Up"
+        android:backgroundTint="@color/accent_lilac"
+        android:textColor="white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword" />
@@ -80,7 +103,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.589"
+        app:layout_constraintVertical_bias="0.924"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
