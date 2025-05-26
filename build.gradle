@@ -35,12 +35,12 @@ buildscript {
 
 // This block applies to all modules in the project
 allprojects {
-//    repositories {
-//        google()
-//        mavenCentral()
+    repositories {
+        google()
+        mavenCentral()
 //        // You might also need other repositories like jcenter() (deprecated) or specific ones
 //        // e.g., maven { url 'https://jitpack.io' } if you use libraries from there
-//    }
+    }
 }
 
 tasks.register('clean', Delete) {
