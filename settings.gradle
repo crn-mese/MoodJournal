@@ -1,2 +1,19 @@
+// File: C:/Users/User/StudioProjects/MoodJournal/settings.gradle
+
+pluginManagement { // Optional but good practice for newer Gradle versions
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement { // Optional but good practice
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "MoodJournal"
 include ':app'
-project('app').projectDir = new File(rootDir, 'app/')
