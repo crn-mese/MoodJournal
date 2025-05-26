@@ -31,8 +31,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Settings"
-                android:textSize="28sp"
+                android:text="@string/settings"
+                android:textSize="29sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_charcoal"
                 android:fontFamily="sans-serif-medium" />
