@@ -16,7 +16,7 @@ buildscript {
         classpath 'com.google.gms:google-services:4.4.0' // Or the latest version
 
         // If you are using Kotlin in your project (even if only in the module):
-        // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0" // Or your Kotlin version
+        // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
     }
     }
 
