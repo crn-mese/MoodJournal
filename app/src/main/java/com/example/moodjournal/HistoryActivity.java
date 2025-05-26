@@ -22,7 +22,7 @@ public class HistoryActivity extends AppCompatActivity {
     private static final String TAG = "HistoryActivity";
 
     private MoodAdapter adapter;
-    private List<MoodEntry> moodEntries; // CHANGED: Use MoodEntry, not JournalEntry
+    private List<MoodEntry> moodEntries;
     private FirebaseFirestore firestore; // CHANGED: Renamed from db to firestore
     private FirebaseAuth firebaseAuth;
 
