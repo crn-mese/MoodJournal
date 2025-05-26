@@ -20,13 +20,6 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="32dp">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_settings_gear"
-                android:layout_marginEnd="12dp"
-                app:tint="@color/primary_blue" />
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -73,7 +66,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="App Theme"
+                        android:text="@string/theme"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_charcoal"
@@ -100,7 +93,7 @@
                             android:id="@+id/lightThemeRadio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="☀️ Light Theme"
+                            android:text="@string/light_theme"
                             android:textSize="16sp"
                             android:textColor="@color/text_charcoal"
                             android:textStyle="bold"
@@ -122,7 +115,7 @@
                             android:id="@+id/darkThemeRadio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="🌙 Dark Theme"
+                            android:text="@string/dark_theme"
                             android:textSize="16sp"
                             android:textColor="@color/text_charcoal"
                             android:textStyle="bold"
@@ -144,7 +137,7 @@
                             android:id="@+id/systemThemeRadio"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="📱 Follow System"
+                            android:text="@string/system"
                             android:textSize="16sp"
                             android:textColor="@color/text_charcoal"
                             android:textStyle="bold"
@@ -194,7 +187,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Daily Reminder"
+                        android:text="@string/reminder"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_charcoal"
@@ -228,7 +221,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Reminder Time"
+                            android:text="@string/time"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/text_charcoal" />
