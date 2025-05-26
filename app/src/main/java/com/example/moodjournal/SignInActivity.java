@@ -15,8 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.moodjournal.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.util.TextUtils;
-
+import android.text.TextUtils;
 public class SignInActivity extends AppCompatActivity {
 
     private static final String TAG = "SignInActivity";
