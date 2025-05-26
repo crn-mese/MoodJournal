@@ -17,10 +17,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
         this.moodEntries = moodEntries;
     }
 
-    public MoodAdapter(HistoryActivity historyActivity, List<JournalEntry> journalEntries) {
-
-    }
-
     @NonNull
     @Override
     public MoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -77,10 +73,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
             case "neutral": return "#F1F1F1";    // Light Gray
             default: return "#FFFFFF";           // White default
         }
-    }
-
-    public void updateEntries(List<JournalEntry> journalEntries) {
-
     }
 
     static class MoodViewHolder extends RecyclerView.ViewHolder {
