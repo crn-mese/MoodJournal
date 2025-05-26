@@ -16,8 +16,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".HistoryActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
         <!-- Other activities, services, receivers, providers would go here -->
     </application>
 </manifest>
