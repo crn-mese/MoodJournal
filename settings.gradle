@@ -1,13 +1,14 @@
 // File: C:/Users/User/StudioProjects/MoodJournal/settings.gradle
 
-pluginManagement { // Optional but good practice for newer Gradle versions
+pluginManagement {
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
     }
 }
-dependencyResolutionManagement { // Optional but good practice
+
+dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
