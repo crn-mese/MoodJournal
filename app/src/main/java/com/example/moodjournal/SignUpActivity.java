@@ -11,19 +11,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull; // Required for @NonNull
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-// It seems you were using a relocated TextUtils, stick to android.text.TextUtils for consistency
-import android.text.TextUtils; // Import standard TextUtils
+import android.text.TextUtils;
 
-import com.google.android.gms.tasks.OnCompleteListener; // Required for OnCompleteListener
-import com.google.android.gms.tasks.Task; // Required for Task
-import com.google.firebase.auth.AuthResult; // Required for AuthResult
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
-// import com.google.firebase.auth.UserProfileChangeRequest; // Keep if you plan to set display name immediately
-
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -60,12 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         textViewGoToSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate back to SignInActivity
-                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-                // Clear previous activities from the back stack to prevent user from going back to sign up
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish(); // Close SignUpActivity
+                finish(); // Just go back to SignInActivity
             }
         });
     }
@@ -74,6 +69,9 @@ public class SignUpActivity extends AppCompatActivity {
         String email = editTextSignUpEmail.getText().toString().trim();
         String password = editTextSignUpPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
+
+        // Add logging to see what email is being used
+        Log.d(TAG, "Attempting to register with email: " + email);
 
         if (TextUtils.isEmpty(email)) {
             editTextSignUpEmail.setError("Email is required.");
@@ -108,15 +106,14 @@ public class SignUpActivity extends AppCompatActivity {
         if (!password.equals(confirmPassword)) {
             editTextConfirmPassword.setError("Passwords do not match.");
             editTextConfirmPassword.requestFocus();
-            // Optionally clear both password fields
-            // editTextSignUpPassword.setText("");
-            // editTextConfirmPassword.setText("");
             return;
         }
 
         progressBarSignUp.setVisibility(View.VISIBLE);
         buttonSignUp.setEnabled(false);
         textViewGoToSignIn.setEnabled(false);
+
+        Log.d(TAG, "Starting Firebase registration process...");
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -127,48 +124,41 @@ public class SignUpActivity extends AppCompatActivity {
                         textViewGoToSignIn.setEnabled(true);
 
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(SignUpActivity.this, "Registration successful. Welcome!",
                                     Toast.LENGTH_SHORT).show();
 
-                            // Optional: Send verification email
-                            /*
-                            if (user != null) {
-                                user.sendEmailVerification()
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Log.d(TAG, "Email sent.");
-                                                    Toast.makeText(SignUpActivity.this,
-                                                            "Verification email sent to " + user.getEmail(),
-                                                            Toast.LENGTH_SHORT).show();
-                                                } else {
-                                                    Log.e(TAG, "sendEmailVerification", task.getException());
-                                                    Toast.makeText(SignUpActivity.this,
-                                                            "Failed to send verification email.",
-                                                            Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
-                            }
-                            */
-
-                            // Navigate to SignInActivity or directly to MainActivity
-                            // For now, let's navigate to SignInActivity to let the user sign in
-                            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                            // Navigate directly to MainActivity after successful registration
+                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-                            finish(); // Close SignUpActivity
+                            finish();
 
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // Enhanced error handling
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUpActivity.this, "Authentication failed: " + task.getException().getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                            // Consider more specific error handling, e.g., if email is already in use.
+
+                            String errorMessage = "Registration failed";
+                            Exception exception = task.getException();
+
+                            if (exception != null) {
+                                Log.e(TAG, "Exception type: " + exception.getClass().getSimpleName());
+                                Log.e(TAG, "Exception message: " + exception.getMessage());
+
+                                if (exception instanceof FirebaseAuthUserCollisionException) {
+                                    errorMessage = "This email is already registered. Please use a different email or try signing in.";
+                                    Log.e(TAG, "User collision - email already exists");
+                                } else if (exception instanceof FirebaseAuthWeakPasswordException) {
+                                    errorMessage = "Password is too weak. Please choose a stronger password.";
+                                } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+                                    errorMessage = "Invalid email format. Please check your email address.";
+                                } else {
+                                    errorMessage = "Registration failed: " + exception.getMessage();
+                                }
+                            }
+
+                            Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
