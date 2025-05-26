@@ -31,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initializeViews() {
         themeRadioGroup = findViewById(R.id.themeRadioGroup);
-        switchNotifications = findViewById(R.id.switchTheme); // This is actually notifications switch
+        switchNotifications = findViewById(R.id.switchTheme);
         buttonSetTime = findViewById(R.id.buttonSetTime);
         textCurrentTime = findViewById(R.id.textCurrentTime);
         saveButton = findViewById(R.id.saveButton);
@@ -60,12 +60,18 @@ public class SettingsActivity extends AppCompatActivity {
         switchNotifications.setChecked(notificationsEnabled);
 
         // Load reminder time
-        int hour = sharedPreferences.getInt("reminder_hour", 21); // 9 PM default
+        int hour = sharedPreferences.getInt("reminder_hour", 21);
         int minute = sharedPreferences.getInt("reminder_minute", 0);
         updateTimeDisplay(hour, minute);
     }
 
     private void setupListeners() {
+        // Theme selection listener - immediate feedback
+        themeRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            // Visual feedback only - actual saving happens on Save button
+            Toast.makeText(this, "Theme selected! Click Save to apply.", Toast.LENGTH_SHORT).show();
+        });
+
         // Notification switch listener
         switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -128,7 +134,6 @@ public class SettingsActivity extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 this,
                 (view, hourOfDay, minute) -> {
-                    // Save the selected time
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("reminder_hour", hourOfDay);
                     editor.putInt("reminder_minute", minute);

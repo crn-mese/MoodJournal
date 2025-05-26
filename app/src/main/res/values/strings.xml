@@ -19,13 +19,13 @@
     <string name="history">📊 History</string>
     <string name="settings">️⚙️ Settings</string>
     <string name="logout">🚪 Logout</string>
-    <string name="time">Reminder Time</string>
+    <string name="time">⏰ Reminder Time</string>
     <string name="dark">Dark Mode</string>
-    <string name="theme">App Theme</string>
+    <string name="theme">🎨 App Theme</string>
     <string name="light_theme">☀️ Light Theme</string>
     <string name="dark_theme">🌙 Dark Theme</string>
     <string name="system">📱 Follow System</string>
-    <string name="reminder">Daily Reminder</string>
+    <string name="reminder">🔔 Daily Reminder</string>
     <string name="current">Current: 9:00 PM</string>
     <string name="change">Change</string>
     <string name="notification">Enable Notifications</string>
