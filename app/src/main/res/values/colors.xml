@@ -25,6 +25,7 @@
     <color name="mood_angry">#F5B6B6</color>
     <color name="mood_anxious">#E8DFF5</color>
     <color name="mood_calm">#B8E2C8</color>
+    <color name="mood_neutral">#B0BEC5</color>
 
     <!--Button Colors-->
     <color name="button_positive">#B8E2C8</color>
