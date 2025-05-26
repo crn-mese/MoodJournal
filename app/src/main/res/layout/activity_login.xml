@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MoodJournal"
+        android:text="@string/login_title"
         android:textSize="32sp"
         android:textColor="#A7C7E7"
         android:textStyle="bold"
@@ -20,7 +20,7 @@
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:layout_marginBottom="16dp"
         android:background="@drawable/edit_text_background"
@@ -30,7 +30,7 @@
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:layout_marginBottom="24dp"
         android:background="@drawable/edit_text_background"
@@ -40,7 +40,7 @@
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
         android:backgroundTint="#A7C7E7"
         android:textColor="white"
         android:layout_marginBottom="12dp" />
@@ -49,7 +49,7 @@
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/register"
         android:backgroundTint="#C3AED6"
         android:textColor="white" />
 
