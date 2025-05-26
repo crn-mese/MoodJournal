@@ -7,7 +7,8 @@ plugins {
 
 android {
     namespace 'com.example.moodjournal'
-    compileSdk 34 // Example: Using a stable SDK version
+    compileSdk 35
+    // Example: Using a stable SDK version
 
     defaultConfig {
         applicationId "com.example.moodjournal"
