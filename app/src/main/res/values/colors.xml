@@ -10,6 +10,7 @@
 
     <!--Primary Colors-->
     <color name="primary_blue">#A7C7E7</color>
+    <color name="primary_soft_blue">#A0C4FF</color>
     <color name="accent_lilac">#C3AED6</color>
     <color name="background_ivory">#FAF9F6</color>
     <color name="background_dark">#2C3E50</color>

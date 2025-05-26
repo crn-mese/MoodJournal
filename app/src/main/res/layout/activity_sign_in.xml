@@ -55,7 +55,7 @@
         android:layout_marginTop="24dp"
         android:text="Sign In"
         android:backgroundTint="@color/accent_lilac"
-        android:textColor="white"
+        android:textColor="@color/white"
         android:layout_marginBottom="12dp"
         android:padding="08dp"
         app:layout_constraintEnd_toEndOf="parent"

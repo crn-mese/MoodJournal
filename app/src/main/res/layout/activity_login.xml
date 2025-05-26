@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:backgroundTint="@color/accent_lilac"
-        android:textColor="white"
+        android:textColor="@color/white"
         android:layout_marginBottom="12dp"
         android:padding="08dp"/>
 
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:text="@string/register"
         android:backgroundTint="@color/accent_lilac"
-        android:textColor="white"
+        android:textColor="@color/white"
         android:padding="08dp"/>
 
 </LinearLayout>
