@@ -1,17 +1,17 @@
 package com.example.moodjournal;
 
 import android.os.Bundle;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
     private MoodAdapter adapter;
     private List<MoodEntry> moodEntries;
     private DatabaseReference databaseReference;
@@ -28,7 +28,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        recyclerView = findViewById(R.id.recyclerViewHistory);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewHistory);
         moodEntries = new ArrayList<>();
         adapter = new MoodAdapter(moodEntries);
 
@@ -42,13 +42,18 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void loadMoodHistory() {
-        String userId = firebaseAuth.getCurrentUser().getUid();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser == null) {
+            return;
+        }
+
+        String userId = currentUser.getUid();
 
         databaseReference.child(userId)
                 .orderByChild("timestamp")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         moodEntries.clear();
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -58,14 +63,15 @@ public class HistoryActivity extends AppCompatActivity {
                             }
                         }
 
-                        Collections.sort(moodEntries, (a, b) ->
-                                Long.compare(b.getTimestamp(), a.getTimestamp()));
+                        // Sort by timestamp (newest first)
+                        moodEntries.sort((a, b) -> Long.compare(b.getTimestamp(), a.getTimestamp()));
 
                         adapter.updateData(moodEntries);
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle error if needed
                     }
                 });
     }
