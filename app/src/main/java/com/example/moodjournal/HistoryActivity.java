@@ -57,7 +57,7 @@ public class HistoryActivity extends AppCompatActivity {
             return;
         }
 
-        String userId = currentUser.getUid();
+        @NonNull String userId = currentUser.getUid();  // ADD @NonNull
 
         firestore.collection("moods") // CHANGED: Use "moods" collection
                 .whereEqualTo("userId", userId)
