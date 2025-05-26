@@ -24,7 +24,7 @@
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
         android:text="Mood Journal"
-        android:textColor="@color/black"
+        android:textColor="#512260"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/anton_regular"
         android:textSize="40sp"
