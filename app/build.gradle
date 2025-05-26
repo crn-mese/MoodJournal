@@ -8,17 +8,20 @@ plugins {
 android {
     namespace 'com.example.moodjournal'
     compileSdk 35
-    // Example: Using a stable SDK version
 
     defaultConfig {
         applicationId "com.example.moodjournal"
         minSdk 24
-        targetSdk 34 // Example: Using a stable SDK version
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
         // Use AndroidX test runner
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -27,34 +30,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8 // Common to use 1.8 or higher with modern AGP
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
+
     // If using Kotlin:
     // kotlinOptions {
-    //     jvmTarget = '1.8'
+    //     jvmTarget = '11'
     // }
 }
 
 dependencies {
-    // AndroidX Libraries (after migrating from support libraries)
-    implementation 'androidx.appcompat:appcompat:1.7.0' // Example
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.1' // Example if you use ConstraintLayout
+    // AndroidX Libraries
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
     // Firebase BoM (Bill of Materials) - Recommended
-    implementation platform('com.google.firebase:firebase-bom:33.14.0') // Check for the latest BoM version
+    implementation platform('com.google.firebase:firebase-bom:33.14.0')
 
     // Add the Firebase SDKs for the products you want to use
     // For example, Analytics, Authentication, Firestore
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-auth:23.2.1'
+    implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
     // Add other Firebase SDKs as needed (e.g., Realtime Database, Storage, Crashlytics)
-
-    // Firebase
-    implementation 'com.google.firebase:firebase-database:21.0.0'
-    implementation 'com.google.firebase:firebase-auth:23.2.1'
 
     // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
@@ -62,11 +63,9 @@ dependencies {
     // CardView for better UI
     implementation 'androidx.cardview:cardview:1.0.0'
 
-    // Material Design
+    // Material Design - Updated to latest version
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'com.google.firebase:firebase-crashlytics-buildtools:3.0.3'
-    implementation 'androidx.media3:media3-common:1.7.1'
-    implementation 'com.google.android.material:material:1.11.0'
+
     // Test libraries (using AndroidX test libraries)
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
