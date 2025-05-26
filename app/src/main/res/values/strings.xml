@@ -32,5 +32,7 @@
     <string name="text">Get daily reminders to track your mood</string>
     <string name="back">← Back</string>
     <string name="save">💾 Save Changes</string>
+    <string name="tagline">Made with ❤️ for better mental health</string>
+    <string name="version">MoodJournal v1.0</string>
 
 </resources>

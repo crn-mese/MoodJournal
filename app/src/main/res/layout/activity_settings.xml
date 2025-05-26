@@ -179,7 +179,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/notification"
+                        android:src="@drawable/ic_notification"
                         android:layout_marginEnd="12dp"
                         app:tint="@color/accent_lilac" />
 
@@ -350,7 +350,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MoodJournal v1.0"
+                    android:text="@string/version"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_charcoal"
@@ -359,7 +359,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Made with ❤️ for better mental health"
+                    android:text="@string/tagline"
                     android:textSize="12sp"
                     android:textColor="@color/text_gray"
                     android:gravity="center" />
