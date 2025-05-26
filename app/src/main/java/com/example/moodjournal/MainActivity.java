@@ -179,16 +179,16 @@ public class MainActivity extends AppCompatActivity {
 
         historyBtn.setOnClickListener(v -> {
             // TODO: Implement HistoryActivity and navigate to it
-            // Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
-            // startActivity(intent);
-            Toast.makeText(this, "History feature coming soon!", Toast.LENGTH_SHORT).show();
+             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+             startActivity(intent);
+//            Toast.makeText(this, "History feature coming soon!", Toast.LENGTH_SHORT).show();
         });
 
         settingsBtn.setOnClickListener(v -> {
             // TODO: Implement SettingsActivity and navigate to it
-            // Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-            // startActivity(intent);
-            Toast.makeText(this, "Settings feature coming soon!", Toast.LENGTH_SHORT).show();
+             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+             startActivity(intent);
+//            Toast.makeText(this, "Settings feature coming soon!", Toast.LENGTH_SHORT).show();
         });
 
         logoutBtn.setOnClickListener(v -> {
