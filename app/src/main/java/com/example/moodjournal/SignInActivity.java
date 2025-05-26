@@ -50,7 +50,7 @@ public class SignInActivity extends AppCompatActivity {
         textViewGoToSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // 'v' will be of type android.view.View
-                Intent intent = new Intent(SignInActivity.this.peekAvailableContext(), SignUpActivity.class);
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
@@ -102,10 +102,11 @@ public class SignInActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
 
                         // Navigate to your main activity or dashboard
-                        // Intent intent = new Intent(SignInActivity.this, MainActivity.class); // Replace MainActivity with your target
-                        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        // startActivity(intent);
-                        // finish(); // Close SignInActivity so user can't go back to it with the back button
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class); // Replace MainActivity with your target
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                        // Close SignInActivity so user can't go back to it with the back button
 
                     } else {
                         // If sign in fails, display a message to the user.
@@ -125,10 +126,10 @@ public class SignInActivity extends AppCompatActivity {
         if (currentUser != null) {
             // User is already signed in, navigate to main activity
             // This prevents the user from seeing the sign-in screen if they are already logged in.
-            // Intent intent = new Intent(SignInActivity.this, MainActivity.class); // Replace MainActivity
-            // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            // startActivity(intent);
-            // finish();
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class); // Replace MainActivity
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
             Log.d(TAG, "User " + currentUser.getEmail() + " already signed in.");
             // You could show a quick toast or directly navigate. For now, just logging.
         }
