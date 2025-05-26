@@ -7,13 +7,24 @@
     android:padding="16dp"
     tools:context=".SignInActivity">
 
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/icon"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
         android:text="Mood Journal"
-        android:textColor="@color/black"
+        android:textColor="#512260"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/anton_regular"
         android:textSize="40sp"
