@@ -3,7 +3,9 @@
 
     <application
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/Theme.AppCompat.Light"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher">
 
         <activity
             android:name=".MainActivity"
@@ -13,6 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".SettingsActivity" />
         <!-- Other activities, services, receivers, providers would go here -->
     </application>
 </manifest>
