@@ -19,9 +19,5 @@
         <!-- Status bar color (optional, but good practice with Material themes) -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
-        <!-- Customize your theme here. -->
-        <!-- You might also want to define other material attributes like: -->
-        <!-- <item name="textAppearanceButton">@style/MyButtonTextAppearance</item> -->
-        <!-- <item name="materialButtonStyle">@style/MyContainedButtonStyle</item> -->
     </style>
 </resources>

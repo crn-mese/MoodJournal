@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -28,14 +28,14 @@
         android:id="@+id/switchTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dark Mode"
+        android:text="@string/dark"
         android:textSize="16sp"
         android:layout_marginBottom="24dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reminder Time"
+        android:text="@string/time"
         android:textSize="18sp"
         android:textColor="#333333"
         android:layout_marginBottom="8dp" />
@@ -44,7 +44,7 @@
         android:id="@+id/buttonSetTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Reminder Time"
+        android:text="@string/time"
         android:layout_marginBottom="8dp" />
 
     <TextView
