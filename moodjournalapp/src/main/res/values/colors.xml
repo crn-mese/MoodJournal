@@ -7,4 +7,25 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--Primary Colors-->
+    <color name="primary_blue">#A7C7E7</color>
+    <color name="accent_lilac">#C3AED6</color>
+    <color name="background_ivory">#FAF9F6</color>
+    <color name="background_dark">#2C3E50</color>
+
+    <!--Text Colors-->
+    <color name="text_charcoal">#2D2D2D</color>
+    <color name="text_gray">#6E6E6E</color>
+
+    <!--Mood Colors-->
+    <color name="mood_happy">#FFF1B6</color>
+    <color name="mood_sad">#D4E2FC</color>
+    <color name="mood_angry">#F5B6B6</color>
+    <color name="mood_anxious">#E8DFF5</color>
+    <color name="mood_calm">#B8E2C8</color>
+
+    <!--Button Colors-->
+    <color name="button_positive">#B8E2C8</color>
+    <color name="button_negative">#FFD6D6</color>
 </resources>
