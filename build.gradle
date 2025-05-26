@@ -13,7 +13,7 @@ buildscript {
         // Example, check for a recent stable version
 
         // Defines the Google Services plugin for Firebase
-        classpath 'com.google.gms:google-services:4.4.0' // Or the latest version
+        classpath 'com.google.gms:google-services:4.4.2' // Or the latest version
 
         // If you are using Kotlin in your project (even if only in the module):
         // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
