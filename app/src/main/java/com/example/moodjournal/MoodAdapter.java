@@ -32,7 +32,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
         // Set emoji and mood name
         holder.textMoodEmoji.setText(entry.getEmoji());
         holder.textMoodName.setText(entry.getMood());
-        holder.textDate.setText(entry.getDate());
+        holder.timestampTextView.setText(entry.getDate());
 
         // Set background color based on mood
         String backgroundColor = getMoodBackgroundColor(entry.getMood());
@@ -76,7 +76,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
     }
 
     static class MoodViewHolder extends RecyclerView.ViewHolder {
-        TextView textMoodEmoji, textMoodName, textDate, textNote;
+        TextView textMoodEmoji, textMoodName, textDate, textNote, timestampTextView;
         CardView cardView;
 
         public MoodViewHolder(@NonNull View itemView) {
@@ -86,6 +86,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
             textMoodName = itemView.findViewById(R.id.textMoodName);
             textDate = itemView.findViewById(R.id.textDate);
             textNote = itemView.findViewById(R.id.textNote);
+            timestampTextView = itemView.findViewById(R.id.textViewItemTimestamp);
         }
     }
 }

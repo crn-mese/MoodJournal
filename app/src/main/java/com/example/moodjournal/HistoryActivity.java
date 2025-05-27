@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Date;
 
 public class HistoryActivity extends AppCompatActivity {
     private static final String TAG = "HistoryActivity";
@@ -89,11 +90,11 @@ public class HistoryActivity extends AppCompatActivity {
     // Helper method to convert JournalEntry to MoodEntry
     private MoodEntry convertToMoodEntry(JournalEntry journalEntry) {
         String emoji = MoodHelper.getMoodEmoji(journalEntry.getMood());
-        String dateString = "";
+        String formattedDateTimeString = "";
 
         if (journalEntry.getTimestamp() != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-            dateString = sdf.format(journalEntry.getTimestamp());
+            formattedDateTimeString = sdf.format(journalEntry.getTimestamp());
         }
 
         long timestamp = journalEntry.getTimestamp() != null ?
@@ -103,7 +104,7 @@ public class HistoryActivity extends AppCompatActivity {
                 journalEntry.getMood(),
                 emoji,
                 journalEntry.getContent(),
-                dateString,
+                formattedDateTimeString,
                 timestamp
         );
     }

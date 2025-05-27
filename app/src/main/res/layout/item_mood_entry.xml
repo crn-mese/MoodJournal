@@ -48,7 +48,7 @@
                 android:id="@+id/textDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dec 25, 2024"
+                android:text="May 27, 2025"
                 android:textSize="12sp"
                 android:textColor="#666666" />
 
@@ -63,6 +63,14 @@
             android:textSize="14sp"
             android:textColor="#555555"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewItemTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"/>
 
     </LinearLayout>
 
