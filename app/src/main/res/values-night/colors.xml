@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Theme Colors -->
+    <!-- You might reuse some colors or define new ones specifically for dark theme -->
+    <color name="primary_blue">#7986CB</color> <!-- A lighter shade of blue for dark theme -->
+    <color name="text_charcoal">#E0E0E0</color>
+    <!-- ... other dark theme specific colors ... -->
+</resources>
