@@ -124,6 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;
         }
+        recreate();
     }
 
     private void showTimePickerDialog() {
