@@ -148,7 +148,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:backgroundTint="@color/primary_blue"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:elevation="6dp"
             app:cornerRadius="12dp"
             android:layout_marginBottom="40dp" />
