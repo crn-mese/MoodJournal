@@ -15,10 +15,10 @@
     <string name="note">Add a note</string>
     <string name="day">How was your day? What made you feel this way?</string>
     <string name="save_mood">Save Mood</string>
-    <string name="quick">Quick Actions</string>
-    <string name="history">📊 History</string>
-    <string name="settings">️⚙️ Settings</string>
-    <string name="logout">🚪 Logout</string>
+    <string name="panel">User Panel</string>
+    <string name="history">History</string>
+    <string name="settings">️Settings</string>
+    <string name="logout">Logout</string>
     <string name="time">⏰ Reminder Time</string>
     <string name="dark">Dark Mode</string>
     <string name="theme">🎨 App Theme</string>
