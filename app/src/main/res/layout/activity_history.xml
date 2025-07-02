@@ -9,13 +9,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mood History"
+        android:text="@string/view_history"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="#333333"
         android:layout_marginBottom="16dp" />
 
+    <!-- Calendar View (initially hidden) -->
+    <com.example.moodjournal.CalendarMoodView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <!-- Legend View (initially hidden) -->
+    <com.example.moodjournal.MoodLegendView
+        android:id="@+id/legendView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#F8F8F8"
+        android:visibility="gone" />
+
+    <!-- RecyclerView for list view (initially visible) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHistory"
         android:layout_width="match_parent"
