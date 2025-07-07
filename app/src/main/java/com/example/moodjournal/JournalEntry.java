@@ -13,6 +13,7 @@ public class JournalEntry {
     private String title;       // A title for the journal entry
     private String content;     // The main text/note of the journal entry
     private String mood;        // The selected mood (e.g., "Happy", "Sad")
+    private String photoPath;
 
     @ServerTimestamp // Firestore will automatically populate this with the server's timestamp
     private Date timestamp;     // When the entry was created/saved
@@ -41,6 +42,7 @@ public class JournalEntry {
         this.title = title;
         this.content = content;
         this.mood = mood;
+        this.photoPath = "";
         // 'timestamp' will be set by @ServerTimestamp annotation by Firestore upon saving
         // 'id' will be set by Firestore or can be set manually if you retrieve a document
     }
@@ -101,6 +103,13 @@ public class JournalEntry {
         this.timestamp = timestamp;
     }
 
+    public String getPhotoPath() { return photoPath; }
+    public void setPhotoPath(String photoPath) { this.photoPath = photoPath != null ? photoPath : ""; }
+
+    public boolean hasPhoto() {
+        return photoPath != null && !photoPath.trim().isEmpty();
+    }
+
     // You could add an @Override toString() method for easier debugging if needed
     @Override
     public String toString() {
@@ -110,6 +119,7 @@ public class JournalEntry {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", mood='" + mood + '\'' +
+                ", photoPath='" + photoPath + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
     }

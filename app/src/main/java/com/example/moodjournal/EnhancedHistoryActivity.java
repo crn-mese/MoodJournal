@@ -87,10 +87,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         }
 
         String userId = currentUser.getUid();
-
-        // Load last 6 months of data for calendar view
-        Calendar sixMonthsAgo = Calendar.getInstance();
-        sixMonthsAgo.add(Calendar.MONTH, -6);
+        Log.d(TAG, "Loading mood history for user: " + userId);
 
         firestore.collection("journal_entries")
                 .whereEqualTo("userId", userId)
@@ -101,23 +98,42 @@ public class EnhancedHistoryActivity extends AppCompatActivity
                         moodEntries.clear();
                         calendarMoodData.clear();
 
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            JournalEntry journalEntry = document.toObject(JournalEntry.class);
-                            MoodEntry moodEntry = convertToMoodEntry(journalEntry);
-                            moodEntries.add(moodEntry);
+                        Log.d(TAG, "Found " + task.getResult().size() + " entries");
 
-                            // Group by date for calendar view
-                            String dateKey = getDateKey(moodEntry.getTimestamp());
-                            calendarMoodData.computeIfAbsent(dateKey, k -> new ArrayList<>()).add(moodEntry);
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            try {
+                                // Get data as Map first for debugging
+                                Map<String, Object> data = document.getData();
+                                Log.d(TAG, "Document data: " + data.toString());
+
+                                // Convert to JournalEntry object
+                                JournalEntry journalEntry = document.toObject(JournalEntry.class);
+
+                                // Convert to MoodEntry with photo path
+                                MoodEntry moodEntry = convertToMoodEntry(journalEntry, data);
+                                moodEntries.add(moodEntry);
+
+                                // Group by date for calendar view
+                                String dateKey = getDateKey(moodEntry.getTimestamp());
+                                calendarMoodData.computeIfAbsent(dateKey, k -> new ArrayList<>()).add(moodEntry);
+
+                                Log.d(TAG, "Added entry with photo path: " + moodEntry.getPhotoPath());
+                            } catch (Exception e) {
+                                Log.e(TAG, "Error processing document: " + document.getId(), e);
+                            }
                         }
 
                         // Update both views
                         adapter.updateData(moodEntries);
-                        calendarView.setMoodData(calendarMoodData);
+                        if (calendarView != null) {
+                            calendarView.setMoodData(calendarMoodData);
+                        }
                         showWeeklyMoodSummary(moodEntries);
 
                         if (moodEntries.isEmpty()) {
                             Toast.makeText(EnhancedHistoryActivity.this, "No mood entries found.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d(TAG, "Loaded " + moodEntries.size() + " mood entries");
                         }
                     } else {
                         Log.w(TAG, "Error getting documents: ", task.getException());
@@ -126,7 +142,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
                 });
     }
 
-    private MoodEntry convertToMoodEntry(JournalEntry journalEntry) {
+    private MoodEntry convertToMoodEntry(JournalEntry journalEntry, Map<String, Object> rawData) {
         String emoji = MoodHelper.getMoodEmoji(journalEntry.getMood());
         String formattedDateTimeString = "";
 
@@ -138,12 +154,29 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         long timestamp = journalEntry.getTimestamp() != null ?
                 journalEntry.getTimestamp().getTime() : System.currentTimeMillis();
 
+        // Extract photo path from raw data (more reliable than object conversion)
+        String photoPath = "";
+        if (rawData.containsKey("photoPath")) {
+            Object photoPathObj = rawData.get("photoPath");
+            if (photoPathObj instanceof String) {
+                photoPath = (String) photoPathObj;
+                Log.d(TAG, "Found photo path in raw data: " + photoPath);
+            }
+        }
+
+        // Fallback to JournalEntry object
+        if (photoPath.isEmpty() && journalEntry.hasPhoto()) {
+            photoPath = journalEntry.getPhotoPath();
+            Log.d(TAG, "Using photo path from JournalEntry: " + photoPath);
+        }
+
         return new MoodEntry(
                 journalEntry.getMood(),
                 emoji,
                 journalEntry.getContent(),
                 formattedDateTimeString,
-                timestamp
+                timestamp,
+                photoPath // Include photo path
         );
     }
 
@@ -313,5 +346,11 @@ public class EnhancedHistoryActivity extends AppCompatActivity
     public void onMonthChange(Calendar month) {
         // Optional: Load additional data for the new month if needed
         Log.d(TAG, "Month changed to: " + month.getTime());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadMoodHistory();
     }
 }
