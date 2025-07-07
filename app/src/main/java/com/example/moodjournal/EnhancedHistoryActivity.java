@@ -114,6 +114,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
                         // Update both views
                         adapter.updateData(moodEntries);
                         calendarView.setMoodData(calendarMoodData);
+                        showWeeklyMoodSummary(moodEntries);
 
                         if (moodEntries.isEmpty()) {
                             Toast.makeText(EnhancedHistoryActivity.this, "No mood entries found.", Toast.LENGTH_SHORT).show();
