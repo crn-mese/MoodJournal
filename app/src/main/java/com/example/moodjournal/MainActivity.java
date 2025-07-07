@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
 
         historyBtn.setOnClickListener(v -> {
             // TODO: Implement HistoryActivity and navigate to it
-             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+             Intent intent = new Intent(MainActivity.this, EnhancedHistoryActivity.class);
              startActivity(intent);
 //            Toast.makeText(this, "History feature coming soon!", Toast.LENGTH_SHORT).show();
         });

@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,7 +62,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         // Initialize RecyclerView (existing functionality)
         recyclerView = findViewById(R.id.recyclerViewHistory);
         moodEntries = new ArrayList<>();
-        adapter = new MoodAdapter(moodEntries);
+        adapter = new MoodAdapter(this, moodEntries);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -156,7 +155,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.history_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_history, menu);
         MenuItem toggleItem = menu.findItem(R.id.action_toggle_view);
         toggleItem.setIcon(isCalendarView ? R.drawable.ic_list : R.drawable.ic_calendar);
         return true;
@@ -167,8 +166,70 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         if (item.getItemId() == R.id.action_toggle_view) {
             toggleView();
             return true;
+        } else if (item.getItemId() == R.id.action_monthly_insights) {
+            showMonthlyInsights();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showMonthlyInsights() {
+        if (moodEntries == null || moodEntries.isEmpty()) {
+            Toast.makeText(this, "No mood entries for this month.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Map<String, Integer> moodCounts = new HashMap<>();
+        int total = 0;
+        Calendar now = Calendar.getInstance();
+        int month = now.get(Calendar.MONTH);
+        int year = now.get(Calendar.YEAR);
+
+        String topMood = null;
+        int max = 0;
+        long topMoodTimestamp = 0;
+
+        for (MoodEntry entry : moodEntries) {
+            Calendar entryCal = Calendar.getInstance();
+            entryCal.setTimeInMillis(entry.getTimestamp());
+            if (entryCal.get(Calendar.MONTH) == month && entryCal.get(Calendar.YEAR) == year) {
+                String mood = entry.getMood();
+                moodCounts.put(mood, moodCounts.getOrDefault(mood, 0) + 1);
+                total++;
+                if (moodCounts.get(mood) > max) {
+                    max = moodCounts.get(mood);
+                    topMood = mood;
+                    topMoodTimestamp = entry.getTimestamp();
+                }
+            }
+        }
+
+        if (total == 0) {
+            Toast.makeText(this, "No mood entries for this month.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringBuilder stats = new StringBuilder();
+        for (Map.Entry<String, Integer> e : moodCounts.entrySet()) {
+            int percent = (int) ((e.getValue() * 100.0f) / total);
+            stats.append(e.getKey()).append(": ").append(percent).append("%\n");
+        }
+
+        String topMoodDate = "";
+        if (topMoodTimestamp != 0) {
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd", Locale.getDefault());
+            topMoodDate = sdf.format(new java.util.Date(topMoodTimestamp));
+        }
+
+        String suggestion = (topMood != null)
+                ? "Most common mood: " + topMood + " (on " + topMoodDate + "). Keep tracking your moods!"
+                : "No moods recorded this month.";
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Monthly Mood Insights")
+                .setMessage(stats.toString() + "\n" + suggestion)
+                .setPositiveButton("OK", null)
+                .show();
     }
 
     private void toggleView() {

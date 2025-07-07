@@ -55,7 +55,7 @@ public class MoodDetailsDialog extends Dialog {
         cardView.setCardElevation(8f);
 
         // Set background color based on mood (same as your adapter)
-        String backgroundColor = getMoodBackgroundColor(mood.getMoodType());
+        String backgroundColor = getMoodBackgroundColor(mood.getMood());
         if (backgroundColor != null) {
             cardView.setCardBackgroundColor(Color.parseColor(backgroundColor));
         }
@@ -88,7 +88,7 @@ public class MoodDetailsDialog extends Dialog {
 
         // Mood name
         TextView moodText = new TextView(getContext());
-        moodText.setText(mood.getMoodType());
+        moodText.setText(mood.getMood());
         moodText.setTextSize(16f);
         moodText.setTypeface(null, android.graphics.Typeface.BOLD);
         moodText.setTextColor(Color.parseColor("#333333"));
