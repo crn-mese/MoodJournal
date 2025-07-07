@@ -51,7 +51,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".HistoryActivity"
+            android:name=".EnhancedHistoryActivity"
             android:exported="false" />
 
         <activity

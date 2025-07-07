@@ -1,47 +1,44 @@
+// MoodSummary.java
 package com.example.moodjournal;
 
-import android.widget.TextView;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class MoodSummary {
-    private List<MoodEntry> moodEntries;
-    private TextView weeklySummaryTextView;
+    private List<MoodEntry> entries;
 
-    public MoodSummary(List<MoodEntry> moodEntries, TextView weeklySummaryTextView) {
-        this.moodEntries = moodEntries;
-        this.weeklySummaryTextView = weeklySummaryTextView;
+    public MoodSummary(List<MoodEntry> entries) {
+        this.entries = entries;
     }
 
-    private Map<String, Integer> getWeeklyMoodCounts() {
-        Map<String, Integer> moodCounts = new HashMap<>();
-        Calendar oneWeekAgo = Calendar.getInstance();
-        oneWeekAgo.add(Calendar.DAY_OF_YEAR, -6);
-
-        for (MoodEntry entry : moodEntries) {
-            if (entry.getTimestamp() >= oneWeekAgo.getTimeInMillis()) {
-                String mood = entry.getMood();
-                moodCounts.put(mood, moodCounts.getOrDefault(mood, 0) + 1);
-            }
+    public Map<String, Integer> getMoodCounts() {
+        Map<String, Integer> counts = new HashMap<>();
+        for (MoodEntry entry : entries) {
+            String mood = entry.getMood();
+            counts.put(mood, counts.getOrDefault(mood, 0) + 1);
         }
-        return moodCounts;
+        return counts;
     }
 
-    public void updateWeeklySummary() {
-        Map<String, Integer> weeklyCounts = getWeeklyMoodCounts();
+    public String getEncouragementMessage() {
+        if (entries == null || entries.isEmpty()) {
+            return "No moods recorded this week. Keep tracking!";
+        }
+        // Example: encourage if happy is most common
+        Map<String, Integer> counts = getMoodCounts();
         String topMood = null;
         int max = 0;
-        for (Map.Entry<String, Integer> e : weeklyCounts.entrySet()) {
+        for (Map.Entry<String, Integer> e : counts.entrySet()) {
             if (e.getValue() > max) {
                 max = e.getValue();
                 topMood = e.getKey();
             }
         }
-        String encouragement = (topMood != null)
-                ? "Keep it up! Your most frequent mood this week: " + topMood
-                : "No moods recorded this week.";
-        weeklySummaryTextView.setText(encouragement + "\n" + weeklyCounts.toString());
+        if ("happy".equalsIgnoreCase(topMood)) {
+            return "Great job staying positive!";
+        } else {
+            return "Keep going! Every mood is valid.";
+        }
     }
 }

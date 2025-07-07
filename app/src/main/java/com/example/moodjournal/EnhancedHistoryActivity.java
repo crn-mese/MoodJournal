@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import com.example.moodjournal.MoodSummary;
 
 public class EnhancedHistoryActivity extends AppCompatActivity
         implements CalendarMoodView.OnDateClickListener, CalendarMoodView.OnMonthChangeListener {
@@ -45,7 +47,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enhanced_history);
+        setContentView(R.layout.activity_history);
 
         initializeFirebase();
         initializeViews();
@@ -231,6 +233,39 @@ public class EnhancedHistoryActivity extends AppCompatActivity
                 .setPositiveButton("OK", null)
                 .show();
     }
+    private void showWeeklyMoodSummary(List<MoodEntry> allEntries) {
+        // Filter entries for the current week
+        Calendar now = Calendar.getInstance();
+        int week = now.get(Calendar.WEEK_OF_YEAR);
+        int year = now.get(Calendar.YEAR);
+
+        List<MoodEntry> weeklyEntries = new ArrayList<>();
+        for (MoodEntry entry : allEntries) {
+            Calendar entryCal = Calendar.getInstance();
+            entryCal.setTimeInMillis(entry.getTimestamp()); // FIXED
+            if (entryCal.get(Calendar.WEEK_OF_YEAR) == week && entryCal.get(Calendar.YEAR) == year) {
+                weeklyEntries.add(entry);
+            }
+        }
+
+        // Use MoodSummary to get counts and encouragement
+        MoodSummary summary = new MoodSummary(weeklyEntries);
+        Map<String, Integer> moodCounts = summary.getMoodCounts();
+        String encouragement = summary.getEncouragementMessage();
+
+        // Build summary text
+        StringBuilder sb = new StringBuilder();
+        sb.append("This Week's Mood Summary:\n");
+        for (Map.Entry<String, Integer> entry : moodCounts.entrySet()) {
+            sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+        }
+        sb.append("\n").append(encouragement);
+
+        // Set to TextView
+        android.widget.TextView summaryText = findViewById(R.id.weeklySummaryText); // FIXED
+        summaryText.setText(sb.toString());
+    }
+
 
     private void toggleView() {
         if (isCalendarView) {
