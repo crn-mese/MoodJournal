@@ -1,27 +1,33 @@
 package com.example.moodjournal;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import java.io.File;
 import java.util.List;
 
 public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder> {
+    private Context context;
     private List<MoodEntry> moodEntries;
 
-    public MoodAdapter(List<MoodEntry> moodEntries) {
+    public MoodAdapter(Context context, List<MoodEntry> moodEntries) {
+        this.context = context;
         this.moodEntries = moodEntries;
     }
 
     @NonNull
     @Override
     public MoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_mood_entry, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_mood_entry, parent, false);
         return new MoodViewHolder(view);
     }
 
@@ -32,13 +38,9 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
         // Set emoji and mood name
         holder.textMoodEmoji.setText(entry.getEmoji());
         holder.textMoodName.setText(entry.getMood());
-        holder.timestampTextView.setText(entry.getDate());
 
-        // Set background color based on mood
-        String backgroundColor = getMoodBackgroundColor(entry.getMood());
-        if (backgroundColor != null) {
-            holder.cardView.setCardBackgroundColor(Color.parseColor(backgroundColor));
-        }
+        // Set date/timestamp
+        holder.textDate.setText(entry.getDate());
 
         // Handle note visibility
         if (entry.getNote() != null && !entry.getNote().trim().isEmpty()) {
@@ -46,6 +48,32 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
             holder.textNote.setVisibility(View.VISIBLE);
         } else {
             holder.textNote.setVisibility(View.GONE);
+        }
+
+        // Set card background color based on mood
+        String backgroundColor = getMoodBackgroundColor(entry.getMood());
+        if (backgroundColor != null) {
+            holder.cardView.setCardBackgroundColor(Color.parseColor(backgroundColor));
+        } else {
+            holder.cardView.setCardBackgroundColor(Color.WHITE);
+        }
+
+        // Handle photo display
+        if (entry.hasPhoto()) {
+            File photoFile = new File(entry.getPhotoPath());
+            if (photoFile.exists()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(entry.getPhotoPath());
+                if (bitmap != null) {
+                    holder.photoImageView.setImageBitmap(bitmap);
+                    holder.photoImageView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.photoImageView.setVisibility(View.GONE);
+                }
+            } else {
+                holder.photoImageView.setVisibility(View.GONE);
+            }
+        } else {
+            holder.photoImageView.setVisibility(View.GONE);
         }
     }
 
@@ -61,22 +89,23 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
 
     private String getMoodBackgroundColor(String mood) {
         switch (mood.toLowerCase()) {
-            case "happy": return "#FFF1B6";      // Pastel Yellow
-            case "sad": return "#D4E2FC";        // Soft Blue
-            case "angry": return "#F5B6B6";      // Soft Red
-            case "anxious": return "#E8DFF5";    // Lavender
-            case "tired": return "#DADADA";      // Muted Gray
-            case "calm": return "#B8E2C8";       // Mint Green
-            case "stressed": return "#FFC8A2";   // Peach Orange
-            case "excited": return "#FFD6E0";    // Pink Blush
-            case "lonely": return "#C3C9E9";     // Pale Indigo
-            case "neutral": return "#F1F1F1";    // Light Gray
-            default: return "#FFFFFF";           // White default
+            case "happy": return "#FFF1B6";
+            case "sad": return "#D4E2FC";
+            case "angry": return "#F5B6B6";
+            case "anxious": return "#E8DFF5";
+            case "tired": return "#DADADA";
+            case "calm": return "#B8E2C8";
+            case "stressed": return "#FFC8A2";
+            case "excited": return "#FFD6E0";
+            case "lonely": return "#C3C9E9";
+            case "neutral": return "#F1F1F1";
+            default: return "#FFFFFF";
         }
     }
 
     static class MoodViewHolder extends RecyclerView.ViewHolder {
-        TextView textMoodEmoji, textMoodName, textDate, textNote, timestampTextView;
+        TextView textMoodEmoji, textMoodName, textDate, textNote;
+        ImageView photoImageView;
         CardView cardView;
 
         public MoodViewHolder(@NonNull View itemView) {
@@ -86,7 +115,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
             textMoodName = itemView.findViewById(R.id.textMoodName);
             textDate = itemView.findViewById(R.id.textDate);
             textNote = itemView.findViewById(R.id.textNote);
-            timestampTextView = itemView.findViewById(R.id.textViewItemTimestamp);
+            photoImageView = itemView.findViewById(R.id.photoImageView);
         }
     }
 }

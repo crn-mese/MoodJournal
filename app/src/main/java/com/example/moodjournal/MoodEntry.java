@@ -6,7 +6,7 @@ public class MoodEntry {
     private String note;
     private String date;
     private long timestamp;
-
+    private String photoPath;
     public MoodEntry() {}
 
     public MoodEntry(String mood, String emoji, String note, String date, long timestamp) {
@@ -15,6 +15,7 @@ public class MoodEntry {
         this.note = note;
         this.date = date;
         this.timestamp = timestamp;
+        this.photoPath = photoPath;
     }
 
     // Getters and setters
@@ -32,4 +33,11 @@ public class MoodEntry {
 
     public long getTimestamp() { return timestamp; }
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+
+    public String getPhotoPath() { return photoPath; }
+    public void setPhotoPath(String photoPath) { this.photoPath = photoPath; }
+
+    public boolean hasPhoto() {
+        return photoPath != null && !photoPath.isEmpty();
+    }
 }

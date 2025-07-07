@@ -54,6 +54,17 @@
 
         </LinearLayout>
 
+        <!-- Photo Section -->
+        <ImageView
+            android:id="@+id/photoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/photo_placeholder_background"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/textNote"
             android:layout_width="match_parent"
