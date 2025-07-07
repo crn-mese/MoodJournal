@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_toggle_view"
+        android:title="@string/toggle"
+        android:icon="@drawable/ic_calendar"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_monthly_insights"
+        android:title="Monthly Insights"
+        android:icon="@drawable/baseline_mood_insights_24"
+        app:showAsAction="never"/>
 
 </menu>
