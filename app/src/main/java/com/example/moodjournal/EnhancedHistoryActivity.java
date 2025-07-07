@@ -254,10 +254,16 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         String encouragement = summary.getEncouragementMessage();
 
         // Build summary text
+        // In EnhancedHistoryActivity.java, inside showWeeklyMoodSummary()
         StringBuilder sb = new StringBuilder();
         sb.append("This Week's Mood Summary:\n");
         for (Map.Entry<String, Integer> entry : moodCounts.entrySet()) {
-            sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            sb.append(entry.getKey()).append(": ").append(entry.getValue()).append(" ");
+            // Add a simple bar: one '|' per mood count
+            for (int i = 0; i < entry.getValue(); i++) {
+                sb.append("|");
+            }
+            sb.append("\n");
         }
         sb.append("\n").append(encouragement);
 
