@@ -38,7 +38,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -318,19 +320,30 @@ public class MainActivity extends AppCompatActivity {
         // You might want to disable the save button here to prevent double clicks
         // findViewById(R.id.saveButton).setEnabled(false);
 
+        Map<String, Object> entryData = new HashMap<>();
+        entryData.put("userId", userId);
+        entryData.put("title", entryTitle);
+        entryData.put("content", noteContent);
+        entryData.put("mood", selectedMood);
+        entryData.put("timestamp", new Date());
+        entryData.put("photoPath", currentPhotoPath);
+
+        // Debug logging
+        Log.d(TAG, "Saving entry with photoPath: " + currentPhotoPath);
+
+        Toast.makeText(this, "Saving entry...", Toast.LENGTH_SHORT).show();
 
         db.collection("journal_entries")
-                .add(newEntry)
+                .add(entryData)
                 .addOnSuccessListener(documentReference -> {
                     Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                    Log.d(TAG, "Saved photoPath: " + currentPhotoPath);
                     Toast.makeText(MainActivity.this, "Entry saved successfully!", Toast.LENGTH_LONG).show();
                     clearInputFields();
-                    // findViewById(R.id.saveButton).setEnabled(true); // Re-enable save button
                 })
                 .addOnFailureListener(e -> {
                     Log.w(TAG, "Error adding document", e);
                     Toast.makeText(MainActivity.this, "Error saving entry: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    // findViewById(R.id.saveButton).setEnabled(true); // Re-enable save button
                 });
     }
 
