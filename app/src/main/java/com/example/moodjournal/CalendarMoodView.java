@@ -273,13 +273,8 @@ public class CalendarMoodView extends View {
             case "happy": return Color.parseColor("#FFD700");      // Gold
             case "sad": return Color.parseColor("#4169E1");        // Royal Blue
             case "angry": return Color.parseColor("#DC143C");      // Crimson
-            case "anxious": return Color.parseColor("#9370DB");    // Medium Purple
-            case "tired": return Color.parseColor("#696969");      // Dim Gray
-            case "calm": return Color.parseColor("#32CD32");       // Lime Green
-            case "stressed": return Color.parseColor("#FF8C00");   // Dark Orange
-            case "excited": return Color.parseColor("#FF1493");    // Deep Pink
-            case "lonely": return Color.parseColor("#6495ED");     // Cornflower Blue
-            case "neutral": return Color.parseColor("#A9A9A9");    // Dark Gray
+            case "anxious": return Color.parseColor("#9370DB");    // Medium Pu
+            case "calm": return Color.parseColor("#32CD32");
             default: return Color.parseColor("#808080");           // Gray default
         }
     }

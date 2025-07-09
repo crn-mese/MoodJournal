@@ -275,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void removePhoto() {
+        photoImageView.setImageDrawable(null);
         currentPhotoPath = "";
         photoImageView.setVisibility(View.GONE);
         photoPlaceholder.setVisibility(View.VISIBLE);
@@ -316,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
 
         JournalEntry newEntry = new JournalEntry(userId, entryTitle, noteContent, selectedMood);
 
-        Toast.makeText(this, "Saving entry...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Entry saved!", Toast.LENGTH_SHORT).show();
         // You might want to disable the save button here to prevent double clicks
         // findViewById(R.id.saveButton).setEnabled(false);
 
@@ -330,8 +331,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Debug logging
         Log.d(TAG, "Saving entry with photoPath: " + currentPhotoPath);
-
-        Toast.makeText(this, "Saving entry...", Toast.LENGTH_SHORT).show();
 
         db.collection("journal_entries")
                 .add(entryData)
@@ -348,10 +347,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clearInputFields() {
+        noteEditText.clearFocus();
         selectedMood = "";
         noteEditText.setText("");
         removePhoto();
         resetMoodButtonsUI();
+        Log.d(TAG, "Input fields cleared.");
     }
 
     private void setupNavigationButtons() {

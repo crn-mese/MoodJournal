@@ -8,8 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class MoodLegendView extends View {
-    private static final String[] MOOD_TYPES = {"Happy", "Sad", "Angry", "Anxious", "Calm", "Excited"};
-    private static final String[] MOOD_COLORS = {"#FFD700", "#4169E1", "#DC143C", "#9370DB", "#32CD32", "#FF1493"};
+    private static final String[] MOOD_TYPES = {"Happy", "Sad", "Angry", "Anxious", "Calm"};
+    private static final String[] MOOD_COLORS = {"#FFD700", "#4169E1", "#DC143C", "#9370DB", "#32CD32"};
 
     private Paint circlePaint, textPaint;
 
