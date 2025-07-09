@@ -21,7 +21,7 @@
     <color name="text_charcoal">#E0E0E0</color>
     <color name="text_gray">#CCCCCC</color>
 
-    <!-- Dark Mood Colors -->
+    <!-- Dark Mood Colors (preserve readability) -->
     <color name="mood_happy">#4A4A2E</color>      <!-- Darker yellow -->
     <color name="mood_sad">#2E3A4A</color>        <!-- Darker blue -->
     <color name="mood_angry">#4A2E2E</color>      <!-- Darker red -->
