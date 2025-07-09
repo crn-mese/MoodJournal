@@ -40,14 +40,118 @@
             android:orientation="vertical"
             android:layout_marginBottom="24dp">
 
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:columnCount="3"
+                android:rowCount="2"
+                android:useDefaultMargins="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/happyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:backgroundTint="@color/mood_happy"
+                    android:elevation="4dp"
+                    android:text="@string/happy"
+                    android:textColor="@color/text_charcoal"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sadButton"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:backgroundTint="@color/mood_sad"
+                    android:elevation="4dp"
+                    android:text="@string/sad"
+                    android:textColor="@color/text_charcoal"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/angryButton"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:backgroundTint="@color/mood_angry"
+                    android:elevation="4dp"
+                    android:text="@string/angry"
+                    android:textColor="@color/text_charcoal"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/anxiousButton"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:backgroundTint="@color/mood_anxious"
+                    android:elevation="4dp"
+                    android:text="@string/anxious"
+                    android:textColor="@color/text_charcoal"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/calmButton"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="6dp"
+                    android:backgroundTint="@color/mood_calm"
+                    android:elevation="4dp"
+                    android:text="@string/calm"
+                    android:textColor="@color/text_charcoal"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
+
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/note"
+                android:textColor="@color/text_gray"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/noteEditText"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/modern_style"
+                android:gravity="top|start"
+                android:hint="@string/day"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="6"
+                android:padding="16dp"
+                android:textColor="@color/text_charcoal"
+                android:textColorHint="@color/text_charcoal"
+                android:textSize="16sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="Add a photo (optional)"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 android:textColor="@color/text_gray"
-                android:layout_marginBottom="8dp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -133,110 +237,8 @@
         </LinearLayout>
 
         <!-- Mood Selection Grid -->
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:rowCount="2"
-            android:layout_marginBottom="32dp"
-            android:useDefaultMargins="true">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/happyButton"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="6dp"
-                android:text="@string/happy"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:backgroundTint="@color/mood_happy"
-                android:textColor="@color/text_charcoal"
-                android:elevation="4dp"
-                app:cornerRadius="12dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/sadButton"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="6dp"
-                android:text="@string/sad"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:backgroundTint="@color/mood_sad"
-                android:textColor="@color/text_charcoal"
-                android:elevation="4dp"
-                app:cornerRadius="12dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/angryButton"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="6dp"
-                android:text="@string/angry"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:backgroundTint="@color/mood_angry"
-                android:textColor="@color/text_charcoal"
-                android:elevation="4dp"
-                app:cornerRadius="12dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/anxiousButton"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="6dp"
-                android:text="@string/anxious"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:backgroundTint="@color/mood_anxious"
-                android:textColor="@color/text_charcoal"
-                android:elevation="4dp"
-                app:cornerRadius="12dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/calmButton"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="6dp"
-                android:text="@string/calm"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:backgroundTint="@color/mood_calm"
-                android:textColor="@color/text_charcoal"
-                android:elevation="4dp"
-                app:cornerRadius="12dp" />
-
-        </GridLayout>
 
         <!-- Note Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/note"
-            android:textSize="18sp"
-            android:textColor="@color/text_gray"
-            android:textStyle="bold"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/noteEditText"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:hint="@string/day"
-            android:gravity="top|start"
-            android:background="@drawable/modern_style"
-            android:padding="16dp"
-            android:textSize="16sp"
-            android:textColor="@color/text_charcoal"
-            android:textColorHint="@color/text_charcoal"
-            android:layout_marginBottom="32dp"
-            android:inputType="textMultiLine|textCapSentences"
-            android:maxLines="6" />
 
         <!-- Save Button -->
         <com.google.android.material.button.MaterialButton
