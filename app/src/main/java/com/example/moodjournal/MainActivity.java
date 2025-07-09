@@ -3,9 +3,9 @@ package com.example.moodjournal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;  // ADD THIS IMPORT
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,17 +22,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;  // ADD THIS IMPORT
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,13 +42,12 @@ import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final String TAG = "MainActivity"; // For logging
     private static final int CAMERA_PERMISSION_CODE = 100;
     private static final int STORAGE_PERMISSION_CODE = 101;
+
     private FirebaseFirestore db;
     private FirebaseAuth auth;
-
     private String selectedMood = "";
     private String currentPhotoPath = "";
     private EditText noteEditText;
@@ -59,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout photoPlaceholder;
     private ImageButton removePhotoButton;
     private Button cameraButton, galleryButton;
-
     private ActivityResultLauncher<Intent> cameraLauncher;
     private ActivityResultLauncher<Intent> galleryLauncher;
 
@@ -71,10 +68,13 @@ public class MainActivity extends AppCompatActivity {
     };
     private final int selectedMoodColor = R.color.selected_mood; // Example: <color name="selected_mood">#00BCD4</color>
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // ADD THIS LINE - Load theme before setContentView
+        loadAndApplyTheme();
+
         setContentView(R.layout.activity_main);
 
         db = FirebaseFirestore.getInstance();
@@ -97,6 +97,24 @@ public class MainActivity extends AppCompatActivity {
         setupPhotoButtons();
         setupSaveButton();
         setupNavigationButtons();
+    }
+
+    // ADD THIS NEW METHOD
+    private void loadAndApplyTheme() {
+        SharedPreferences prefs = getSharedPreferences("MoodJournalPrefs", MODE_PRIVATE);
+        String theme = prefs.getString("theme_preference", "light");
+
+        switch (theme) {
+            case "dark":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "light":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "system":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
     }
 
     private void initializeViews() {
@@ -154,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupMoodButtons() {
         String[] moods = {"Happy", "Sad", "Angry", "Anxious", "Calm"};
-
         for (int i = 0; i < moodButtons.length; i++) {
             final String mood = moods[i];
             final Button button = moodButtons[i];
@@ -316,8 +333,8 @@ public class MainActivity extends AppCompatActivity {
                 new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date()) + ")";
 
         JournalEntry newEntry = new JournalEntry(userId, entryTitle, noteContent, selectedMood);
-
         Toast.makeText(this, "Entry saved!", Toast.LENGTH_SHORT).show();
+
         // You might want to disable the save button here to prevent double clicks
         // findViewById(R.id.saveButton).setEnabled(false);
 
@@ -361,17 +378,13 @@ public class MainActivity extends AppCompatActivity {
         Button logoutBtn = findViewById(R.id.logoutButton);
 
         historyBtn.setOnClickListener(v -> {
-            // TODO: Implement HistoryActivity and navigate to it
-             Intent intent = new Intent(MainActivity.this, EnhancedHistoryActivity.class);
-             startActivity(intent);
-//            Toast.makeText(this, "History feature coming soon!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, EnhancedHistoryActivity.class);
+            startActivity(intent);
         });
 
         settingsBtn.setOnClickListener(v -> {
-            // TODO: Implement SettingsActivity and navigate to it
-             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-             startActivity(intent);
-//            Toast.makeText(this, "Settings feature coming soon!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
         });
 
         logoutBtn.setOnClickListener(v -> {
