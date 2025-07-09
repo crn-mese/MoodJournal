@@ -1,8 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Dark Theme Colors -->
-    <!-- You might reuse some colors or define new ones specifically for dark theme -->
-    <color name="primary_blue">#7986CB</color> <!-- A lighter shade of blue for dark theme -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Dark Primary Colors -->
+    <color name="primary_blue">#7986CB</color>
+    <color name="primary_soft_blue">#6C7CE7</color>
+    <color name="accent_lilac">#B39DDB</color>
+    <color name="background_ivory">#121212</color>  <!-- Dark background -->
+    <color name="background_dark">#1E1E1E</color>
+    <color name="mood_neutral_settings">#2A2A2A</color>
+
+    <!-- Dark Text Colors -->
     <color name="text_charcoal">#E0E0E0</color>
-    <!-- ... other dark theme specific colors ... -->
-</resources> 
+    <color name="text_gray">#CCCCCC</color>
+
+    <!-- Dark Mood Colors -->
+    <color name="mood_happy">#4A4A2E</color>      <!-- Darker yellow -->
+    <color name="mood_sad">#2E3A4A</color>        <!-- Darker blue -->
+    <color name="mood_angry">#4A2E2E</color>      <!-- Darker red -->
+    <color name="mood_anxious">#3A2E4A</color>    <!-- Darker purple -->
+    <color name="mood_calm">#2E4A32</color>       <!-- Darker green -->
+    <color name="mood_neutral">#3A3A3A</color>    <!-- Dark gray -->
+
+    <!-- Dark Button Colors -->
+    <color name="button_positive">#2E4A32</color>
+    <color name="button_negative">#4A2E2E</color>
+    <color name="selected_mood">#00ACC1</color>
+</resources>
