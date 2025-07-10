@@ -1,6 +1,7 @@
 package com.example.moodjournal;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -50,12 +51,13 @@ public class EnhancedHistoryActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Load theme before setContentView
+        // Load theme FIRST, before super.onCreate()
         loadAndApplyTheme();
 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enhanced_history);
+
+        Log.d(TAG, "Current night mode: " + (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK));
 
         initializeFirebase();
         initializeViews();
@@ -66,15 +68,20 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         SharedPreferences prefs = getSharedPreferences("MoodJournalPrefs", MODE_PRIVATE);
         String theme = prefs.getString("theme_preference", "light");
 
+        Log.d(TAG, "Loading theme: " + theme);
+
         switch (theme) {
             case "dark":
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                Log.d(TAG, "Setting dark mode");
+                setTheme(R.style.AppTheme_Dark); // Use your dark theme
                 break;
             case "light":
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                Log.d(TAG, "Setting light mode");
+                setTheme(R.style.AppTheme); // Use your light theme
                 break;
             case "system":
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                Log.d(TAG, "Setting system mode");
+                // Let system handle it
                 break;
         }
     }
@@ -97,8 +104,10 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         calendarView = findViewById(R.id.calendarView);
         legendView = findViewById(R.id.legendView);
 
-        calendarView.setOnDateClickListener(this);
-        calendarView.setOnMonthChangeListener(this);
+        if (calendarView != null) {
+            calendarView.setOnDateClickListener(this);
+            calendarView.setOnMonthChangeListener(this);
+        }
 
         // Initially show list view
         showListView();
@@ -219,7 +228,9 @@ public class EnhancedHistoryActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_history, menu);
         MenuItem toggleItem = menu.findItem(R.id.action_toggle_view);
-        toggleItem.setIcon(isCalendarView ? R.drawable.ic_list : R.drawable.ic_calendar);
+        if (toggleItem != null) {
+            toggleItem.setIcon(isCalendarView ? R.drawable.ic_list : R.drawable.ic_calendar);
+        }
         return true;
     }
 
@@ -304,7 +315,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         List<MoodEntry> weeklyEntries = new ArrayList<>();
         for (MoodEntry entry : allEntries) {
             Calendar entryCal = Calendar.getInstance();
-            entryCal.setTimeInMillis(entry.getTimestamp()); // FIXED
+            entryCal.setTimeInMillis(entry.getTimestamp());
 
             if (entryCal.get(Calendar.WEEK_OF_YEAR) == week && entryCal.get(Calendar.YEAR) == year) {
                 weeklyEntries.add(entry);
@@ -325,8 +336,10 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         sb.append("\n").append(encouragement);
 
         // Set to TextView
-        TextView summaryText = findViewById(R.id.weeklySummaryText); // FIXED
-        summaryText.setText(sb.toString());
+        TextView summaryText = findViewById(R.id.weeklySummaryText);
+        if (summaryText != null) {
+            summaryText.setText(sb.toString());
+        }
     }
 
     private void toggleView() {
@@ -340,16 +353,16 @@ public class EnhancedHistoryActivity extends AppCompatActivity
 
     private void showListView() {
         isCalendarView = false;
-        recyclerView.setVisibility(View.VISIBLE);
-        calendarView.setVisibility(View.GONE);
-        legendView.setVisibility(View.GONE);
+        if (recyclerView != null) recyclerView.setVisibility(View.VISIBLE);
+        if (calendarView != null) calendarView.setVisibility(View.GONE);
+        if (legendView != null) legendView.setVisibility(View.GONE);
     }
 
     private void showCalendarView() {
         isCalendarView = true;
-        recyclerView.setVisibility(View.GONE);
-        calendarView.setVisibility(View.VISIBLE);
-        legendView.setVisibility(View.VISIBLE);
+        if (recyclerView != null) recyclerView.setVisibility(View.GONE);
+        if (calendarView != null) calendarView.setVisibility(View.VISIBLE);
+        if (legendView != null) legendView.setVisibility(View.VISIBLE);
     }
 
     @Override
