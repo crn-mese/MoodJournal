@@ -29,7 +29,7 @@
         android:id="@+id/legendView"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/mood_neutral_settings"
+        android:background="@color/background_dark"
         android:visibility="gone" />
 
     <TextView
@@ -40,7 +40,9 @@
         android:padding="16dp"
         android:textSize="16sp"
         android:textColor="@color/text_gray"
-        android:background="@color/mood_neutral_settings"
+        android:background="@color/background_dark"
+        android:layout_margin="8dp"
+        android:elevation="2dp"
         android:visibility="visible"/>
 
     <!-- RecyclerView for list view (initially visible) -->
