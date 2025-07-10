@@ -1,14 +1,17 @@
 package com.example.moodjournal;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import com.example.moodjournal.MoodSummary;
 
 public class EnhancedHistoryActivity extends AppCompatActivity
@@ -47,11 +51,32 @@ public class EnhancedHistoryActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Load theme before setContentView
+        loadAndApplyTheme();
+
         setContentView(R.layout.activity_enhanced_history);
 
         initializeFirebase();
         initializeViews();
         loadMoodHistory();
+    }
+
+    private void loadAndApplyTheme() {
+        SharedPreferences prefs = getSharedPreferences("MoodJournalPrefs", MODE_PRIVATE);
+        String theme = prefs.getString("theme_preference", "light");
+
+        switch (theme) {
+            case "dark":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "light":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "system":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
     }
 
     private void initializeFirebase() {
@@ -128,6 +153,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
                         if (calendarView != null) {
                             calendarView.setMoodData(calendarMoodData);
                         }
+
                         showWeeklyMoodSummary(moodEntries);
 
                         if (moodEntries.isEmpty()) {
@@ -220,7 +246,6 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         Calendar now = Calendar.getInstance();
         int month = now.get(Calendar.MONTH);
         int year = now.get(Calendar.YEAR);
-
         String topMood = null;
         int max = 0;
         long topMoodTimestamp = 0;
@@ -228,10 +253,12 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         for (MoodEntry entry : moodEntries) {
             Calendar entryCal = Calendar.getInstance();
             entryCal.setTimeInMillis(entry.getTimestamp());
+
             if (entryCal.get(Calendar.MONTH) == month && entryCal.get(Calendar.YEAR) == year) {
                 String mood = entry.getMood();
                 moodCounts.put(mood, moodCounts.getOrDefault(mood, 0) + 1);
                 total++;
+
                 if (moodCounts.get(mood) > max) {
                     max = moodCounts.get(mood);
                     topMood = mood;
@@ -267,6 +294,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
                 .setPositiveButton("OK", null)
                 .show();
     }
+
     private void showWeeklyMoodSummary(List<MoodEntry> allEntries) {
         // Filter entries for the current week
         Calendar now = Calendar.getInstance();
@@ -277,6 +305,7 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         for (MoodEntry entry : allEntries) {
             Calendar entryCal = Calendar.getInstance();
             entryCal.setTimeInMillis(entry.getTimestamp()); // FIXED
+
             if (entryCal.get(Calendar.WEEK_OF_YEAR) == week && entryCal.get(Calendar.YEAR) == year) {
                 weeklyEntries.add(entry);
             }
@@ -288,7 +317,6 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         String encouragement = summary.getEncouragementMessage();
 
         // Build summary text
-        // In EnhancedHistoryActivity.java, inside showWeeklyMoodSummary()
         StringBuilder sb = new StringBuilder();
         sb.append("This Week's Mood Summary:\n");
         for (Map.Entry<String, Integer> entry : moodCounts.entrySet()) {
@@ -297,10 +325,9 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         sb.append("\n").append(encouragement);
 
         // Set to TextView
-        android.widget.TextView summaryText = findViewById(R.id.weeklySummaryText); // FIXED
+        TextView summaryText = findViewById(R.id.weeklySummaryText); // FIXED
         summaryText.setText(sb.toString());
     }
-
 
     private void toggleView() {
         if (isCalendarView) {
