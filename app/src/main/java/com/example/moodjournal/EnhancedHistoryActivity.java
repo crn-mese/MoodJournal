@@ -100,6 +100,18 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        // 🔴 Set up delete listener
+        adapter.setOnMoodDeleteListener(entry -> {
+            new androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle("Delete Entry")
+                    .setMessage("Are you sure you want to delete this mood entry?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        deleteEntryFromFirestore(entry);
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        });
+
         // Initialize Calendar View (new functionality)
         calendarView = findViewById(R.id.calendarView);
         legendView = findViewById(R.id.legendView);
@@ -112,6 +124,23 @@ public class EnhancedHistoryActivity extends AppCompatActivity
         // Initially show list view
         showListView();
     }
+
+
+    private void deleteEntryFromFirestore(MoodEntry entry) {
+        firestore.collection("journal_entries")
+                .document(entry.getId())
+                .delete()
+                .addOnSuccessListener(unused -> {
+                    moodEntries.remove(entry);
+                    adapter.updateData(new ArrayList<>(moodEntries));
+                    Toast.makeText(this, "Entry deleted", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to delete entry", Toast.LENGTH_SHORT).show();
+                    Log.e("DeleteEntry", "Error deleting document", e);
+                });
+    }
+
 
     private void loadMoodHistory() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -146,6 +175,8 @@ public class EnhancedHistoryActivity extends AppCompatActivity
                                 // Convert to MoodEntry with photo path
                                 MoodEntry moodEntry = convertToMoodEntry(journalEntry, data);
                                 moodEntries.add(moodEntry);
+                                moodEntry.setId(document.getId());
+
 
                                 // Group by date for calendar view
                                 String dateKey = getDateKey(moodEntry.getTimestamp());

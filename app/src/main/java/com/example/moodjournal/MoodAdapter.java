@@ -15,13 +15,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.File;
 import java.util.List;
 
+// Step 1: Add delete listener interface
+interface OnMoodDeleteListener {
+    void onDelete(MoodEntry entry);
+}
+
 public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder> {
     private Context context;
     private List<MoodEntry> moodEntries;
 
+    // Step 2: Delete listener
+    private OnMoodDeleteListener deleteListener;
+
     public MoodAdapter(Context context, List<MoodEntry> moodEntries) {
         this.context = context;
         this.moodEntries = moodEntries;
+    }
+
+    public void setOnMoodDeleteListener(OnMoodDeleteListener listener) {
+        this.deleteListener = listener;
     }
 
     @NonNull
@@ -75,6 +87,13 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
         } else {
             holder.photoImageView.setVisibility(View.GONE);
         }
+
+        // Step 3: Handle delete click
+        holder.iconDelete.setOnClickListener(v -> {
+            if (deleteListener != null) {
+                deleteListener.onDelete(entry);
+            }
+        });
     }
 
     @Override
@@ -89,23 +108,34 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
 
     private String getMoodBackgroundColor(String mood) {
         switch (mood.toLowerCase()) {
-            case "happy": return "#FFF1B6";
-            case "sad": return "#D4E2FC";
-            case "angry": return "#F5B6B6";
-            case "anxious": return "#E8DFF5";
-            case "tired": return "#DADADA";
-            case "calm": return "#B8E2C8";
-            case "stressed": return "#FFC8A2";
-            case "excited": return "#FFD6E0";
-            case "lonely": return "#C3C9E9";
-            case "neutral": return "#F1F1F1";
-            default: return "#FFFFFF";
+            case "happy":
+                return "#FFF1B6";
+            case "sad":
+                return "#D4E2FC";
+            case "angry":
+                return "#F5B6B6";
+            case "anxious":
+                return "#E8DFF5";
+            case "tired":
+                return "#DADADA";
+            case "calm":
+                return "#B8E2C8";
+            case "stressed":
+                return "#FFC8A2";
+            case "excited":
+                return "#FFD6E0";
+            case "lonely":
+                return "#C3C9E9";
+            case "neutral":
+                return "#F1F1F1";
+            default:
+                return "#FFFFFF";
         }
     }
 
     static class MoodViewHolder extends RecyclerView.ViewHolder {
         TextView textMoodEmoji, textMoodName, textDate, textNote;
-        ImageView photoImageView;
+        ImageView photoImageView, iconDelete;
         CardView cardView;
 
         public MoodViewHolder(@NonNull View itemView) {
@@ -116,6 +146,7 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
             textDate = itemView.findViewById(R.id.textDate);
             textNote = itemView.findViewById(R.id.textNote);
             photoImageView = itemView.findViewById(R.id.photoImageView);
+            iconDelete = itemView.findViewById(R.id.iconDelete); // ✅ ADD THIS
         }
     }
 }

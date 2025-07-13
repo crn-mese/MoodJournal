@@ -52,6 +52,16 @@
                 android:textSize="12sp"
                 android:textColor="#666666" />
 
+            <ImageView
+                android:id="@+id/iconDelete"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:contentDescription="Delete Entry"
+                android:tint="@android:color/holo_red_dark" />
+
+
         </LinearLayout>
 
         <!-- Photo Section -->
