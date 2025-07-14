@@ -58,7 +58,7 @@
                     android:elevation="4dp"
                     android:text="@string/happy"
                     android:textColor="@color/text_charcoal"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
 
@@ -72,7 +72,7 @@
                     android:elevation="4dp"
                     android:text="@string/sad"
                     android:textColor="@color/text_charcoal"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
 
@@ -86,7 +86,7 @@
                     android:elevation="4dp"
                     android:text="@string/angry"
                     android:textColor="@color/text_charcoal"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
 
@@ -100,7 +100,7 @@
                     android:elevation="4dp"
                     android:text="@string/anxious"
                     android:textColor="@color/text_charcoal"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
 
@@ -114,7 +114,7 @@
                     android:elevation="4dp"
                     android:text="@string/calm"
                     android:textColor="@color/text_charcoal"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
 
